@@ -1,0 +1,15 @@
+Keyword:
+"auto", "break", "case", "char", "const", "while", 
+"endl", "cin", "cout", "string", "sizeof", "continue",
+"default", "catch", "try", "bool", "using", "sort", "unsigned", "void",
+"do", "double" , "else", "enum", "extern", "float", "for", "goto", "typedef", "union",
+"if", "int", "long", "register", "return", "short", "signed", "struct", "switch", "static",
+
+Relational operator:
+">", ">=", "<", "<=", "==", "!="
+
+Parenthesis: ( , ) , ( , ) , [ , ]
+
+Number: 123.97E+10 , 124.9, 789
+
+Identifier : sum, mul, a, b

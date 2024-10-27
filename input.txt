@@ -1,0 +1,8 @@
+void main(){
+    int sum, a, b;
+    cin>>a>>b;
+    sum=5+(768.66E+10);
+    if(a<=b) cout<<1000008<<endl;
+    else cout<<12
+return 0;
+}
