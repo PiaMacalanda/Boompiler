@@ -93,7 +93,7 @@ class MiniCompilerGUI:
         if not result:
             self.display_result(error)
             return
-        self.display_result("Syntax Analysis Success.")
+        self.display_result("Syntax Analysis Success. Syntax Free.")
         self.enable_button(self.semantic_analysis_button)
         self.syntax_analysis_button.config(state="disabled")
 
@@ -103,7 +103,7 @@ class MiniCompilerGUI:
         if not result:
             self.display_result(error)
             return
-        self.display_result("Semantic Analysis Success.")
+        self.display_result("Semantic Analysis Success. Decorative Syntax Free.")
         self.semantic_analysis_button.config(state="disabled")
 
 # Run the application
