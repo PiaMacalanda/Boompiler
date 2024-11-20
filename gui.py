@@ -4,10 +4,13 @@ from lexical_analyzer import LexicalAnalyzer
 from syntax_analyzer import SyntaxAnalyzer
 from semantic_analyzer import SemanticAnalyzer
 
+
 class MiniCompilerGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Boompiler")
+        self.root.configure(bg="#f7f4ef")
+        self.root.geometry("700x500")
 
         # Initialize analyzers
         self.lexical_analyzer = LexicalAnalyzer()
@@ -18,23 +21,39 @@ class MiniCompilerGUI:
         self.initialize_ui()
 
     def initialize_ui(self):
-        self.code_text = tk.Text(self.root, height=10, width=50, state="disabled")
-        self.result_text = tk.Text(self.root, height=10, width=50, state="disabled", bg="lightyellow")
-        self.open_file_button = tk.Button(self.root, text="Open File", command=self.open_file)
-        self.lexical_analysis_button = tk.Button(self.root, text="Lexical Analysis", command=self.lexical_analysis, state="disabled")
-        self.syntax_analysis_button = tk.Button(self.root, text="Syntax Analysis", command=self.syntax_analysis, state="disabled")
-        self.semantic_analysis_button = tk.Button(self.root, text="Semantic Analysis", command=self.semantic_analysis, state="disabled")
-        self.clear_button = tk.Button(self.root, text="Clear", command=self.clear)
+        # Left Sidebar for Buttons
+        self.sidebar = tk.Frame(self.root, bg="#eaf3d9", width=150)
+        self.sidebar.pack(side="left", fill="y", padx=5, pady=5)
 
-        self.open_file_button.pack()
-        self.lexical_analysis_button.pack()
-        self.syntax_analysis_button.pack()
-        self.semantic_analysis_button.pack()
-        self.clear_button.pack()
-        tk.Label(self.root, text="Code:").pack()
-        self.code_text.pack()
-        tk.Label(self.root, text="Results:").pack()
-        self.result_text.pack()
+        button_style = {"bg": "#f7f4ef", "fg": "#333", "bd": 2, "relief": "groove", "font": ("Arial", 10, "bold")}
+
+        self.open_file_button = tk.Button(self.sidebar, text="Open File", command=self.open_file, **button_style)
+        self.lexical_analysis_button = tk.Button(self.sidebar, text="Lexical Analysis", command=self.lexical_analysis, state="disabled", **button_style)
+        self.syntax_analysis_button = tk.Button(self.sidebar, text="Syntax Analysis", command=self.syntax_analysis, state="disabled", **button_style)
+        self.semantic_analysis_button = tk.Button(self.sidebar, text="Semantic Analysis", command=self.semantic_analysis, state="disabled", **button_style)
+        self.clear_button = tk.Button(self.sidebar, text="Clear", command=self.clear, **button_style)
+
+        self.open_file_button.pack(fill="x", pady=5)
+        self.lexical_analysis_button.pack(fill="x", pady=5)
+        self.syntax_analysis_button.pack(fill="x", pady=5)
+        self.semantic_analysis_button.pack(fill="x", pady=5)
+        self.clear_button.pack(fill="x", pady=5)
+
+        # Main Content Area
+        self.main_content = tk.Frame(self.root, bg="#f7f4ef")
+        self.main_content.pack(side="right", fill="both", expand=True, padx=10, pady=5)
+
+        self.code_label = tk.Label(self.main_content, text="CODE:", bg="#f7f4ef", font=("Arial", 10, "bold"))
+        self.code_label.pack(anchor="w")
+
+        self.code_text = tk.Text(self.main_content, height=10, wrap="word", borderwidth=2, relief="solid")
+        self.code_text.pack(fill="both", expand=True, pady=5)
+
+        self.result_label = tk.Label(self.main_content, text="RESULT:", bg="#f7f4ef", font=("Arial", 10, "bold"))
+        self.result_label.pack(anchor="w")
+
+        self.result_text = tk.Text(self.main_content, height=10, wrap="word", borderwidth=2, relief="solid", bg="lightyellow")
+        self.result_text.pack(fill="both", expand=True, pady=5)
 
     def open_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
@@ -103,8 +122,9 @@ class MiniCompilerGUI:
         if not result:
             self.display_result(error)
             return
-        self.display_result("Semantic Analysis Success. Decorative Syntax Free.")
+        self.display_result("Semantic Analysis Success. Semantics Valid.")
         self.semantic_analysis_button.config(state="disabled")
+
 
 # Run the application
 if __name__ == "__main__":
