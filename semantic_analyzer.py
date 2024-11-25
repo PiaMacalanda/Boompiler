@@ -1,21 +1,36 @@
 class SemanticAnalyzer:
+    def __init__(self):
+        # Define type mappings for allowed assignments
+        self.type_mappings = {
+            "int": "NUMBER",
+            "float": "NUMBER",
+            "double": "NUMBER",
+            "String": "STRING_LITERAL",
+            "boolean": "BOOLEAN_LITERAL"
+        }
+    
     def check_semantics(self, tokens):
-        type_decl = tokens[0]["value"]   # Get the declared type
-        assigned_token = tokens[3] if len(tokens) > 3 and tokens[2]["type"] == "ASSIGN" else None
-        
-        # Check if the type and value are compatible
+        if not tokens or len(tokens) < 2:
+            return False, "Semantic Error: Invalid syntax or incomplete tokens."
+
+        # Get declared type and assignment token
+        type_decl = tokens[0].get("value")
+        assigned_token = tokens[3] if len(tokens) > 3 and tokens[2].get("type") == "ASSIGN" else None
+
+        # Validate declared type
+        if type_decl not in self.type_mappings:
+            return False, f"Semantic Error: Unsupported type '{type_decl}'."
+
+        # If there's an assignment, check compatibility
         if assigned_token:
-            value_type = assigned_token["type"]
-            if type_decl == "int" and value_type != "NUMBER":
-                return False, "Semantic Error: 'int' type can only be assigned integer values."
-            elif type_decl == "float" and value_type != "NUMBER":
-                return False, "Semantic Error: 'float' type can only be assigned numeric values."
-            elif type_decl == "double" and value_type != "NUMBER":
-                return False, "Semantic Error: 'double' type can only be assigned numeric values."
-            elif type_decl == "String" and value_type != "STRING_LITERAL":
-                return False, "Semantic Error: 'String' type can only be assigned string literals."
-            elif type_decl == "boolean" and value_type != "BOOLEAN_LITERAL":
-                return False, "Semantic Error: 'boolean' type can only be assigned 'true' or 'false'."
+            value_type = assigned_token.get("type")
+            expected_type = self.type_mappings[type_decl]
+
+            if value_type != expected_type:
+                return (
+                    False,
+                    f"Semantic Error: Type mismatch. '{type_decl}' expects '{expected_type}', but got '{value_type}'."
+                )
         
         # If no assignment or compatible assignment, return success
         return True, None
