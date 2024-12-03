@@ -14,7 +14,9 @@ class SyntaxAnalyzer:
             if tokens[-1]["type"] != "SEMICOLON":
                 return False, "Syntax Error: Missing semicolon at end of declaration."
         elif tokens[2]["type"] == "SEMICOLON":
-            # Direct declaration without assignment
+            # Direct declaration without assignment, check for extra tokens
+            if len(tokens) > 3:
+                return False, "Syntax Error: Unexpected tokens after semicolon."
             return True, None
         else:
             return False, "Syntax Error: Unexpected token after identifier."

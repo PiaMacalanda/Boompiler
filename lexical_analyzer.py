@@ -14,6 +14,8 @@ class LexicalAnalyzer:
             ("STRING_LITERAL", r'"[^"]*"'),                       # String literals
             ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),           # Boolean literals
             ("SEMICOLON", r";"),                                  # End of statement
+            ("COMMENT", r"//.*?$"),                               # Single-line comment
+            ("MULTI_LINE_COMMENT", r"/\*.*?\*/"),                  # Multi-line comment
             ("SKIP", r"[ \t]+"),                                  # Skip whitespace
             ("MISMATCH", r"."),                                   # Any other character
         ]
@@ -25,8 +27,15 @@ class LexicalAnalyzer:
         for mo in re.finditer(token_regex, code):
             kind = mo.lastgroup
             value = mo.group(kind)
+
             if kind == "MISMATCH":
-                return [], f"Lexical Error: Unexpected token '{value}'"
+                # Log the mismatch token and continue
+                print(f"Lexical Error: Unexpected token '{value}'")
+
+            if kind == "COMMENT" or kind == "MULTI_LINE_COMMENT":
+                # Skip over comments
+                continue
+            
             if kind != "SKIP":  # Ignore whitespace
                 tokens.append({"type": kind, "value": value})
         
