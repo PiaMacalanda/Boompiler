@@ -1,0 +1,11 @@
+public class TestString {
+    String message = "Hello, my name is \"Boompiler\", and I am 0.01 years old."; // This is a comment
+
+    /* Multi-line comment 
+       that spans multiple lines */
+}
+
+// Test Case: Test for string syntax and multiple comment.
+// Lexical Analysis: Passes. Comments are ignored correctly.
+// Syntax Analysis: Passes. No errors in code structure.
+// Semantic Analysis: Passes. No semantic issues in comments or variable usage.

@@ -1,16 +1,18 @@
-int intVar;                // Integer declaration without initialization
-double doubleVar;         // Double declaration without initialization
-char charVar;             // Character declaration without initialization
-boolean boolVar;          // Boolean declaration without initialization
-String stringVar;         // String declaration without initialization
+public class Example {
+    public static void main(String[] args) {
+        
+        // Variable declarations
+        int intVar;                // Integer declaration without initialization
+        double doubleVar;          // Double declaration without initialization
+        char charVar;              // Character declaration without initialization
+        boolean boolVar;           // Boolean declaration without initialization
+        String stringVar;          // String declaration without initialization
 
-        // At this point, the variables are declared but not initialized.
-        // Trying to use them will result in a compilation error.
-        // System.out.println(intVar); // This would cause a compilation error
-
-// Initializing the variables
-intVar = 10;               // Now intVar is initialized
-doubleVar = 3.14;         // Now doubleVar is initialized
-charVar = 'A';            // Now charVar is initialized
-boolVar = true;           // Now boolVar is initialized
-stringVar = "Hello";      // Now stringVar is initialized
+        // Initializing the variables
+        intVar = 10;               // Now intVar is initialized
+        doubleVar = 3.14;          // Now doubleVar is initialized
+        charVar = 'A';             // Now charVar is initialized
+        boolVar = true;            // Now boolVar is initialized
+        stringVar = "Hello";       // Now stringVar is initialized
+    }
+}
