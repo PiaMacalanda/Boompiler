@@ -1,0 +1,4 @@
+String message = "Hello, my name is \"Boompiler\", and I am 0.01 years old."; // This is a comment
+
+/* Multi-line comment 
+   that spans multiple lines */
