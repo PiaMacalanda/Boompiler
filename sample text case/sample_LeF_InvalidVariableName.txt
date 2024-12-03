@@ -1,0 +1,13 @@
+public class Test {
+    public static void main(String[] args) {
+        int var1 = 10;       // This is fine - passes lexical, syntax, and semantic analysis
+        int @var2 = 20;      // Lexical Error - '@' is not a valid character for a variable name
+
+        // In lexical analysis, '@' is an invalid token
+        // Will fail at lexical analysis
+    }
+}
+
+// Test Case: Check for invalid character in variable name
+// Lexical Analysis: Fails. '@' is not a valid character in variable names.
+

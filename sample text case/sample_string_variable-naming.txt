@@ -1,5 +1,0 @@
-int _var1 = 10;
-String $var2 = "Hello";
-boolean var$3 = true;
-
-// passed all analysis

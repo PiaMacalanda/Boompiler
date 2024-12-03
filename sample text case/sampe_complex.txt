@@ -1,6 +1,0 @@
-float temperature = 36.6; // body temperature
-String greeting = "Hello, world!";
-int age = 25;
-boolean isEmployed = true;
-
-// passed all analysis

@@ -56,7 +56,7 @@ class MiniCompilerGUI:
         self.result_text.pack(fill="both", expand=True, pady=5)
 
     def open_file(self):
-        file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
+        file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("Java files", "*.java")])
         if file_path:
             with open(file_path, 'r') as file:
                 code = file.read()

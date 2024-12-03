@@ -14,5 +14,10 @@ public class Example {
         charVar = 'A';             // Now charVar is initialized
         boolVar = true;            // Now boolVar is initialized
         stringVar = "Hello";       // Now stringVar is initialized
+
+        // Test Case: See if comments are ignored and variable initialization are working.
+        // Lexical Analysis: Passes
+        // Syntax Analysis: Passes
+        // Semantic Analysis: Passes
     }
 }

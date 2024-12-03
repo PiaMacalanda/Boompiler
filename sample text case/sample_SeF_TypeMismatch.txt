@@ -1,0 +1,11 @@
+public class Test {
+    public static void main(String[] args) {
+        int var1 = 10;       // This is fine - passes lexical, syntax, and semantic analysis
+        String var2 = "hello"; // Fine - passes all analyzers
+
+        var1 = var2;          // Semantic Error: trying to assign a String to an int
+
+        // In semantic analysis, we check that the types are compatible.
+        // This will fail because you cannot assign a String to an int variable.
+    }
+}

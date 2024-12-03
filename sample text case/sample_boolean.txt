@@ -1,3 +1,0 @@
-boolean isActive = 1;
-
-// pass only lexical
