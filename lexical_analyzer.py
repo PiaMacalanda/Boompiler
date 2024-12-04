@@ -33,6 +33,7 @@ class LexicalAnalyzer:
             ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),           # Boolean literals
 
             # Punctuation and delimiters
+            ("COMMA", r","),                                      # Comma
             ("SEMICOLON", r";"),                                  # End of statement
             ("LBRACE", r"{"),                                     # Left brace
             ("RBRACE", r"}"),                                     # Right brace
