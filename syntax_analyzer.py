@@ -6,7 +6,7 @@ class SyntaxAnalyzer:
             if len(tokens) - index < 3:
                 return False, f"Syntax Error: Incomplete statement starting at token {index}."
 
-            # Multi-variable declaration with commas or single variable declaration
+            # Handle variable declarations (both single and multi-variable declarations)
             if tokens[index]["type"] == "TYPE":
                 index += 1  # Skip TYPE
                 if index >= len(tokens) or tokens[index]["type"] != "IDENTIFIER":
@@ -16,7 +16,7 @@ class SyntaxAnalyzer:
                 while index < len(tokens) and tokens[index]["type"] == "IDENTIFIER":
                     index += 1  # Skip IDENTIFIER
 
-                    # Check for assignment
+                    # Check for assignment to the variable (optional)
                     if index < len(tokens) and tokens[index]["type"] == "ASSIGN":
                         index += 1  # Skip ASSIGN
                         if tokens[index]["type"] not in {"NUMBER", "STRING_LITERAL", "BOOLEAN_LITERAL", "IDENTIFIER", "CHAR_LITERAL"}:
@@ -31,10 +31,10 @@ class SyntaxAnalyzer:
                         break
                     else:
                         return False, "Syntax Error: Missing comma or semicolon in variable declaration."
-
+                
                 continue  # Move to the next statement or token
 
-            # Assignment statement (e.g., x = 0;)
+            # Handle assignment statement (e.g., x = 0;)
             elif tokens[index]["type"] == "IDENTIFIER":
                 if index + 1 >= len(tokens) or tokens[index + 1]["type"] != "ASSIGN":
                     return False, f"Syntax Error: Missing '=' after identifier at token {index}."

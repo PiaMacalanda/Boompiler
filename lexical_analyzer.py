@@ -20,10 +20,11 @@ class LexicalAnalyzer:
 
             # Keywords and identifiers
             ("ACCESS_MODIFIER", r"\b(?:public|private|protected)\b"),  # Access modifiers
+            ("CLASS", r""),
             ("STATIC", r"\bstatic\b"),                                  # Static modifier
             ("METHOD", r"\b(?:void)\b"),                              # Method keyword (return type)
             ("TYPE", r"\b(?:int|float|double|String|boolean|char)\b"),   # Java types
-            ("IDENTIFIER", r"\b[a-zA-Z_][a-zA-Z0-9_$]*\b"),            # Java identifiers
+            ("IDENTIFIER", r"[$a-zA-Z_][a-zA-Z0-9_$]*"),            # Java identifiers (allow $)
 
             # Literals and operators
             ("ASSIGN", r"="),                                     # Assignment operator
@@ -62,7 +63,9 @@ class LexicalAnalyzer:
                 continue  # Skip comments
 
             if kind == "MISMATCH" and value.strip():
+                print(f"Unexpected token: {value}")  # Debugging line
                 return [], f"Lexical Error: Unexpected token '{value}' huhuhu."
+
 
             if kind != "SKIP":  # Ignore whitespace
                 tokens.append({"type": kind, "value": value})
