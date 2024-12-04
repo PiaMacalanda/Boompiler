@@ -46,12 +46,14 @@ class MiniCompilerGUI:
         self.clear_button = tk.Button(self.sidebar, text="Clear", command=self.clear, **button_style, width=15)
         self.toggle_mode_button = tk.Button(self.sidebar, text="࣪ ִֶָ☾.", command=self.toggle_mode, **button_style, width=5)
 
-        self.open_file_button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
-        self.lexical_analysis_button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
-        self.syntax_analysis_button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
-        self.semantic_analysis_button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
-        self.clear_button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
-        self.toggle_mode_button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
+        # Pack buttons
+        buttons = [
+            self.open_file_button, self.lexical_analysis_button, self.syntax_analysis_button,
+            self.semantic_analysis_button, self.clear_button, self.toggle_mode_button
+        ]
+        for button in buttons:
+            button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
+            self.add_hover_effect(button)
 
         # Main Content Area
         self.main_content = tk.Frame(self.root, padx=10, pady=10)
@@ -59,9 +61,8 @@ class MiniCompilerGUI:
 
         self.code_label = tk.Label(self.main_content, text="CODE:", font=("Arial", 12, "bold"))
         self.code_label.pack(anchor="w")
-        self.code_text = tk.Text(self.main_content, height=10, wrap="word", borderwidth=2, relief="solid", font=("Courier", 12, "normal"))
+        self.code_text = tk.Text(self.main_content, height=10, wrap="word", borderwidth=2, relief="solid", font=("Courier", 12, "normal"), state="disabled")
         self.code_text.pack(fill="both", expand=True, pady=5)
-        self.code_text.bind("<<Modified>>", self.on_code_change)
 
         self.result_label = tk.Label(self.main_content, text="RESULT:", font=("Arial", 12, "bold"))
         self.result_label.pack(anchor="w")
@@ -70,6 +71,17 @@ class MiniCompilerGUI:
 
         # Apply default styles (Light Mode)
         self.apply_styles()
+
+    def add_hover_effect(self, button):
+        """Add hover effect to buttons."""
+        def on_enter(e):
+            button['bg'] = "#cccccc" if not self.is_dark_mode else "#555555"
+
+        def on_leave(e):
+            button['bg'] = "#f5f5f5" if not self.is_dark_mode else "#333333"
+
+        button.bind("<Enter>", on_enter)
+        button.bind("<Leave>", on_leave)
 
     def apply_styles(self):
         if self.is_dark_mode:
@@ -97,12 +109,8 @@ class MiniCompilerGUI:
 
         # Update buttons
         button_style = {"bg": "#f5f5f5" if not self.is_dark_mode else "#333333", "fg": fg_color, "bd": 0, "font": ("Arial", 12, "bold")}
-        self.open_file_button.config(**button_style)
-        self.lexical_analysis_button.config(**button_style)
-        self.syntax_analysis_button.config(**button_style)
-        self.semantic_analysis_button.config(**button_style)
-        self.clear_button.config(**button_style)
-        self.toggle_mode_button.config(**button_style)
+        for button in [self.open_file_button, self.lexical_analysis_button, self.syntax_analysis_button, self.semantic_analysis_button, self.clear_button, self.toggle_mode_button]:
+            button.config(**button_style)
 
         # Update code text and result text
         self.code_text.config(bg="#ffffff" if not self.is_dark_mode else "#333333", fg=fg_color)
@@ -115,16 +123,6 @@ class MiniCompilerGUI:
         """Toggle between light and dark mode."""
         self.is_dark_mode = not self.is_dark_mode
         self.apply_styles()
-
-    def on_code_change(self, event):
-        """Enable buttons when code is manually typed."""
-        self.code_text.edit_modified(False)  # Reset the modified flag
-        code = self.code_text.get("1.0", tk.END).strip()
-        if code:
-            self.enable_button(self.lexical_analysis_button)
-        else:
-            self.disable_all_buttons()
-        self.enable_button(self.open_file_button)
 
     def open_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
@@ -140,6 +138,7 @@ class MiniCompilerGUI:
         self.code_text.config(state="normal")
         self.code_text.delete("1.0", tk.END)
         self.code_text.insert("1.0", code)
+        self.code_text.config(state="disabled")
 
     def display_result(self, result):
         self.result_text.config(state="normal")
@@ -171,7 +170,7 @@ class MiniCompilerGUI:
             return
         self.display_result("Lexical Analysis Success! BOOM! \n--- Tokens ---")
         for token in tokens:
-            self.display_result(f"Type {token['type']}, Value: {token['value']}")
+            self.display_result(f"{token['type']}: {token['value']}")
         self.enable_button(self.syntax_analysis_button)
         self.lexical_analysis_button.config(state="disabled")
 
