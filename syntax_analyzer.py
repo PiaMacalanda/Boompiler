@@ -31,8 +31,9 @@ class SyntaxAnalyzer:
                         break
                     else:
                         return False, "Syntax Error: Missing comma or semicolon in variable declaration."
-                
+
                 continue  # Move to the next statement or token
+
 
             # Handle assignment statement (e.g., x = 0;)
             elif tokens[index]["type"] == "IDENTIFIER":
