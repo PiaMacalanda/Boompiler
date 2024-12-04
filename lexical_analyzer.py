@@ -20,7 +20,7 @@ class LexicalAnalyzer:
 
             # Keywords and identifiers
             ("ACCESS_MODIFIER", r"\b(?:public|private|protected)\b"),  # Access modifiers
-            ("CLASS", r""),
+            ("CLASS", r"class"),                                       
             ("STATIC", r"\bstatic\b"),                                  # Static modifier
             ("METHOD", r"\b(?:void)\b"),                              # Method keyword (return type)
             ("TYPE", r"\b(?:int|float|double|String|boolean|char)\b"),   # Java types
