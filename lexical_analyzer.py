@@ -62,7 +62,7 @@ class LexicalAnalyzer:
                 continue  # Skip comments
 
             if kind == "MISMATCH" and value.strip():
-                return [], f"Lexical Error: Unexpected token '{value}'"
+                return [], f"Lexical Error: Unexpected token '{value}' huhuhu."
 
             if kind != "SKIP":  # Ignore whitespace
                 tokens.append({"type": kind, "value": value})

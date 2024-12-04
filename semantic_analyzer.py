@@ -6,12 +6,13 @@ class SemanticAnalyzer:
             "float": "NUMBER",
             "double": "NUMBER",
             "String": "STRING_LITERAL",
-            "boolean": "BOOLEAN_LITERAL"
+            "boolean": "BOOLEAN_LITERAL",
+            "char": "CHAR_LITERAL"
         }
     
     def check_semantics(self, tokens):
         if not tokens or len(tokens) < 2:
-            return False, "Semantic Error: Invalid syntax or incomplete tokens."
+            return False, "Semantic Error: Invalid syntax or incomplete tokens. Aw sad :( "
 
         # Get declared type and assignment token
         type_decl = tokens[0].get("value")
@@ -19,7 +20,7 @@ class SemanticAnalyzer:
 
         # Validate declared type
         if type_decl not in self.type_mappings:
-            return False, f"Semantic Error: Unsupported type '{type_decl}'."
+            return False, f"Semantic Error: Unsupported type '{type_decl}'. Aw sad :( ."
 
         # If there's an assignment, check compatibility
         if assigned_token:
@@ -29,7 +30,7 @@ class SemanticAnalyzer:
             if value_type != expected_type:
                 return (
                     False,
-                    f"Semantic Error: Type mismatch. '{type_decl}' expects '{expected_type}', but got '{value_type}'."
+                    f"Semantic Error: Type mismatch. '{type_decl}' expects '{expected_type}', but got '{value_type}'. Aw sad :( ."
                 )
         
         # If no assignment or compatible assignment, return success
