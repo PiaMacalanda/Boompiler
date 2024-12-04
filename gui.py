@@ -169,9 +169,9 @@ class MiniCompilerGUI:
         if error:
             self.display_result(error)
             return
-        self.display_result("Lexical Analysis Success! \n--- Tokens ---")
+        self.display_result("Lexical Analysis Success! BOOM! \n--- Tokens ---")
         for token in tokens:
-            self.display_result(f"{token['type']}: {token['value']}")
+            self.display_result(f"Type {token['type']}, Value: {token['value']}")
         self.enable_button(self.syntax_analysis_button)
         self.lexical_analysis_button.config(state="disabled")
 
@@ -181,7 +181,7 @@ class MiniCompilerGUI:
         if not result:
             self.display_result(error)
             return
-        self.display_result("Syntax Analysis Success! Syntax Free.")
+        self.display_result("Syntax Analysis Success! BOOM! Syntax Free.")
         self.enable_button(self.semantic_analysis_button)
         self.syntax_analysis_button.config(state="disabled")
 
@@ -191,7 +191,7 @@ class MiniCompilerGUI:
         if not result:
             self.display_result(error)
             return
-        self.display_result("Semantic Analysis Success! Semantics Valid.")
+        self.display_result("Semantic Analysis Success! BOOM! Semantics Valid.")
         self.semantic_analysis_button.config(state="disabled")
 
 # Run the application
