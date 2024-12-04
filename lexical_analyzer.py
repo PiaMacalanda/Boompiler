@@ -18,20 +18,18 @@ class LexicalAnalyzer:
             ("COMMENT", r"//.*?$"),                                # Single-line comments
             ("MULTI_LINE_COMMENT", r"/\*.*?\*/"),                 # Multi-line comments
 
-            # Keywords and identifiers
+            # Keywords and identifiers | Literals and operators
             ("ACCESS_MODIFIER", r"\b(?:public|private|protected)\b"),  # Access modifiers
             ("CLASS", r"class"),                                       
             ("STATIC", r"\bstatic\b"),                                  # Static modifier
             ("METHOD", r"\b(?:void)\b"),                              # Method keyword (return type)
             ("TYPE", r"\b(?:int|float|double|String|boolean|char)\b"),   # Java types
+            ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),           # Boolean literals
             ("IDENTIFIER", r"[$a-zA-Z_][a-zA-Z0-9_$]*"),            # Java identifiers (allow $)
-
-            # Literals and operators
             ("ASSIGN", r"="),                                     # Assignment operator
             ("NUMBER", r"\b\d+(\.\d+)?[fF]?\b"),                   # accept float literals with an optional 'f' suffix
             ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),             # String literals (with escape sequences)
             ("CHAR_LITERAL", r"'(?:\\.|[^'\\])*'"),               # Char literals (with escape sequences)
-            ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),           # Boolean literals
 
             # Punctuation and delimiters
             ("COMMA", r","),                                      # Comma
