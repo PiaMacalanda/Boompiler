@@ -28,7 +28,7 @@ class LexicalAnalyzer:
 
             # Literals and operators
             ("ASSIGN", r"="),                                     # Assignment operator
-            ("NUMBER", r"\b\d+(\.\d+)?\b"),                       # Integer or decimal numbers
+            ("NUMBER", r"\b\d+(\.\d+)?[fF]?\b"),                   # accept float literals with an optional 'f' suffix
             ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),             # String literals (with escape sequences)
             ("CHAR_LITERAL", r"'(?:\\.|[^'\\])*'"),               # Char literals (with escape sequences)
             ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),           # Boolean literals
