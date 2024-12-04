@@ -4,23 +4,23 @@ class SyntaxAnalyzer:
         while index < len(tokens):
             # Ensure enough tokens to process a statement
             if len(tokens) - index < 3:
-                return False, f"Syntax Error: Incomplete statement starting at token {index}."
+                return False, f"Syntax Error: Incomplete statement starting at token {index}. Aw sad :(."
 
-            # Handle variable declarations (both single and multi-variable declarations)
+            # Multi-variable declaration with commas or single variable declaration
             if tokens[index]["type"] == "TYPE":
                 index += 1  # Skip TYPE
                 if index >= len(tokens) or tokens[index]["type"] != "IDENTIFIER":
-                    return False, "Syntax Error: Expected an identifier after type declaration."
+                    return False, "Syntax Error: Expected an identifier after type declaration. Aw sad :(."
 
                 # Handle single-variable or multi-variable declaration
                 while index < len(tokens) and tokens[index]["type"] == "IDENTIFIER":
                     index += 1  # Skip IDENTIFIER
 
-                    # Check for assignment to the variable (optional)
+                    # Check for assignment
                     if index < len(tokens) and tokens[index]["type"] == "ASSIGN":
                         index += 1  # Skip ASSIGN
                         if tokens[index]["type"] not in {"NUMBER", "STRING_LITERAL", "BOOLEAN_LITERAL", "IDENTIFIER", "CHAR_LITERAL"}:
-                            return False, f"Syntax Error: Invalid assignment value near token {index}."
+                            return False, f"Syntax Error: Invalid assignment value near token {index}. Aw sad :(."
                         index += 1  # Skip the assigned value
                     
                     # Handle either comma (for multi-variable declaration) or semicolon (end of declaration)
@@ -30,24 +30,23 @@ class SyntaxAnalyzer:
                         index += 1  # Skip SEMICOLON, end of declaration
                         break
                     else:
-                        return False, "Syntax Error: Missing comma or semicolon in variable declaration."
+                        return False, "Syntax Error: Missing comma or semicolon in variable declaration. Aw sad :(."
 
                 continue  # Move to the next statement or token
 
-
-            # Handle assignment statement (e.g., x = 0;)
+            # Assignment statement (e.g., x = 0;)
             elif tokens[index]["type"] == "IDENTIFIER":
                 if index + 1 >= len(tokens) or tokens[index + 1]["type"] != "ASSIGN":
-                    return False, f"Syntax Error: Missing '=' after identifier at token {index}."
+                    return False, f"Syntax Error: Missing '=' after identifier at token {index}. Aw sad :(."
                 if index + 2 >= len(tokens) or tokens[index + 2]["type"] not in {"NUMBER", "STRING_LITERAL", "BOOLEAN_LITERAL", "IDENTIFIER", "CHAR_LITERAL"}:
-                    return False, f"Syntax Error: Invalid assignment value near token {index + 2}."
+                    return False, f"Syntax Error: Invalid assignment value near token {index + 2}. Aw sad :(."
                 if index + 3 >= len(tokens) or tokens[index + 3]["type"] != "SEMICOLON":
-                    return False, "Syntax Error: Missing semicolon after assignment."
+                    return False, "Syntax Error: Missing semicolon after assignment. Aw sad :(."
                 index += 4  # Move past IDENTIFIER, ASSIGN, value, and SEMICOLON
                 continue
 
             else:
-                return False, f"Syntax Error: Unexpected token '{tokens[index]['type']}' at position {index}."
+                return False, f"Syntax Error: Unexpected token '{tokens[index]['type']}' at position {index}. Aw sad :(."
 
         # If all statements are valid
         return True, None
