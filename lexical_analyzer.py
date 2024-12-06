@@ -15,36 +15,41 @@ class LexicalAnalyzer:
         # Token specification (comment patterns should come first)
         token_spec = [
             # Comments
-            ("COMMENT", r"//.*?$"),                                # Single-line comments
-            ("MULTI_LINE_COMMENT", r"/\*.*?\*/"),                 # Multi-line comments
+            ("COMMENT", r"//.*?$"),
+            ("MULTI_LINE_COMMENT", r"/\*.*?\*/"),
 
             # Keywords and identifiers | Literals and operators
-            ("ACCESS_MODIFIER", r"\b(?:public|private|protected)\b"),  # Access modifiers
-            ("CLASS", r"class"),                                       
-            ("STATIC", r"\bstatic\b"),                                  # Static modifier
-            ("METHOD", r"\b(?:void)\b"),                              # Method keyword (return type)
-            ("TYPE", r"\b(?:int|float|double|String|boolean|char)\b"),   # Java types
-            ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),           # Boolean literals
-            ("IDENTIFIER", r"[$a-zA-Z_][a-zA-Z0-9_$]*"),            # Java identifiers (allow $)
-            ("ASSIGN", r"="),                                     # Assignment operator
-            ("NUMBER", r"\b\d+(\.\d+)?[fF]?\b"),                   # accept float literals with an optional 'f' suffix
-            ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),             # String literals (with escape sequences)
-            ("CHAR_LITERAL", r"'(?:\\.|[^'\\])*'"),               # Char literals (with escape sequences)
+            ("ACCESS_MODIFIER", r"\b(?:public|private|protected)\b"),
+            ("CLASS", r"class"),
+            ("STATIC", r"\bstatic\b"),
+            ("METHOD", r"\b(?:void)\b"),
+            ("TYPE", r"\b(?:int|float|double|String|boolean|char)\b"),
+            ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),
+            ("IDENTIFIER", r"[$a-zA-Z_][a-zA-Z0-9_$]*"),
+            ("ASSIGN", r"="),
+
+            # Literals
+            ("FLOAT_LITERAL", r"\b\d*\.?\d+[fF]\b"),
+            ("DOUBLE_LITERAL", r"\b\d+\.\d+\b"),
+            ("INT_LITERAL", r"\b\d+\b"),
+            ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),
+            ("CHAR_LITERAL", r"'(?:\\.|[^'\\])*'"),
 
             # Punctuation and delimiters
-            ("COMMA", r","),                                      # Comma
-            ("SEMICOLON", r";"),                                  # End of statement
-            ("LBRACE", r"{"),                                     # Left brace
-            ("RBRACE", r"}"),                                     # Right brace
-            ("LBRACKET", r"\["),                                  # Left bracket
-            ("RBRACKET", r"\]"),                                  # Right bracket
-            ("LPAREN", r"\("),                                    # Left parenthesis
-            ("RPAREN", r"\)"),                                    # Right parenthesis
+            ("COMMA", r","),
+            ("SEMICOLON", r";"),
+            ("LBRACE", r"{"),
+            ("RBRACE", r"}"),
+            ("LBRACKET", r"\["),
+            ("RBRACKET", r"\]"),
+            ("LPAREN", r"\("),
+            ("RPAREN", r"\)"),
 
             # Whitespace and errors
-            ("SKIP", r"[ \t\r\n]+"),                              # Skip all whitespace
-            ("MISMATCH", r"."),                                   # Fallback for unexpected tokens
+            ("SKIP", r"[ \t\r\n]+"),
+            ("MISMATCH", r"."),
         ]
+
 
         # Compile regex for all tokens
         token_regex = "|".join(f"(?P<{name}>{pattern})" for name, pattern in token_spec)
