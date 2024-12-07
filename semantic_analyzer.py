@@ -9,62 +9,96 @@ class SemanticAnalyzer:
             "boolean": "BOOLEAN_LITERAL",
             "char": "CHAR_LITERAL",
         }
+        self.variable_types = {}  # To track variable types
 
     def check_semantics(self, tokens):
+
+        self.variable_types = {}
         # Debugging: print the tokens being processed
         print(f"Tokens in semantic analysis: {tokens}")
 
         if not tokens or len(tokens) < 2:
             return False, "Semantic Error: Invalid syntax or incomplete tokens. Aw sad :(. "
 
-        # The first token should be the type
-        type_decl = tokens[0].get("value")
-
-        # Validate the declared type
-        if type_decl not in self.type_mappings:
-            return False, f"Semantic Error: Unsupported type '{type_decl}'. Aw sad :(. "
-
-        # Check for multiple variable declarations on the same line (e.g., `int x, y, z;`)
-        declared_variables = []
-        index = 1
-        if tokens[index]["type"] == "IDENTIFIER":
-            while index < len(tokens) and tokens[index]["type"] == "IDENTIFIER":
-                declared_variables.append(tokens[index]["value"])
-                index += 1  # Move past the identifier(s)
-
-        # Now we need to check if each variable gets assigned after its declaration.
-        # Initialize a dictionary to track which variables were assigned
-        assignments = {var: False for var in declared_variables}
-
-        # Iterate through the rest of the tokens and check for assignments
+        index = 0
         while index < len(tokens):
-            if tokens[index]["type"] == "ASSIGN":
-                # Get the variable to assign to
-                if index - 1 >= 0 and tokens[index - 1]["type"] == "IDENTIFIER":
-                    var = tokens[index - 1]["value"]
-                    if var in assignments:
-                        # Check the assigned value's type
-                        assigned_token = tokens[index + 1] if index + 1 < len(tokens) else None
-                        if assigned_token:
-                            value_type = assigned_token["type"]
-                            expected_type = self.type_mappings[type_decl]
+            # Check for type declaration (e.g., int x, y;)
+            if tokens[index]["type"] == "TYPE":
+                type_token = tokens[index]["value"]
+                index += 1  # Skip TYPE
 
-                            # Type mismatch checks
-                            if type_decl == "int" and value_type in ["FLOAT_LITERAL", "DOUBLE_LITERAL"]:
-                                return False, f"Semantic Error: Cannot assign a float or double literal to an int variable '{var}'. Aw sad :(. Please use integer values."
-                            if type_decl == "float" and value_type == "DOUBLE_LITERAL":
-                                return False, f"Semantic Error: Cannot assign a double literal to a float variable '{var}'. Aw sad :(. Please use the 'f' suffix for float values."
-                            if value_type != expected_type:
-                                return False, f"Semantic Error: Type mismatch. '{type_decl}' expects '{expected_type}', but got '{value_type}' for variable '{var}'. Aw sad :("
+                if index >= len(tokens) or tokens[index]["type"] != "IDENTIFIER":
+                    return False, "Semantic Error: Expected an identifier after type declaration. Aw sad :(."
 
-                            assignments[var] = True  # Mark variable as assigned
-                            index += 2  # Skip assignment and value
+                # Process variables in the same line (handles multiple declarations like 'int x, y, z;')
+                while index < len(tokens) and tokens[index]["type"] == "IDENTIFIER":
+                    identifier = tokens[index]["value"]
 
-            index += 1  # Move to the next token
+                    # Check for redeclaration of a variable
+                    if identifier in self.variable_types:
+                        return False, f"Semantic Error: Variable '{identifier}' already declared. Aw sad :("
 
-        # Check if all declared variables are assigned
-        for var, assigned in assignments.items():
-            if not assigned:
-                return False, f"Semantic Error: Variable '{var}' declared but never assigned. Aw sad :("
+                    self.variable_types[identifier] = type_token  # Track variable type
+                    index += 1  # Skip IDENTIFIER
+
+                    # Check for assignment
+                    if index < len(tokens) and tokens[index]["type"] == "ASSIGN":
+                        index += 1  # Skip ASSIGN
+                        if tokens[index]["type"] not in {
+                            "INT_LITERAL", "FLOAT_LITERAL", "DOUBLE_LITERAL", "STRING_LITERAL", "BOOLEAN_LITERAL", "CHAR_LITERAL", "IDENTIFIER"
+                        }:
+                            return False, f"Semantic Error: Invalid assignment value near token {index}. Aw sad :("
+
+                        # Validate based on variable type
+                        value_type = tokens[index]["type"]
+                        if value_type != self.type_mappings.get(self.variable_types[identifier], None):
+                            return False, f"Semantic Error: Type mismatch for '{identifier}'. Expected {self.variable_types[identifier]} but got {value_type}. Aw sad :("
+
+                        index += 1  # Skip assigned value
+                    
+                    # Handle commas for multiple variables or semicolon to end declaration
+                    if index < len(tokens) and tokens[index]["type"] == "COMMA":
+                        index += 1  # Skip COMMA
+                        if index >= len(tokens) or tokens[index]["type"] != "IDENTIFIER":
+                            return False, "Semantic Error: Expected identifier after comma. Aw sad :(."
+                    elif index < len(tokens) and tokens[index]["type"] == "SEMICOLON":
+                        index += 1  # Skip SEMICOLON, end of declaration
+                        break
+                    else:
+                        return False, "Semantic Error: Missing comma or semicolon in variable declaration. Aw sad :("
+
+            # Handle assignment statement (e.g., x = 0;)
+            elif tokens[index]["type"] == "IDENTIFIER":
+                identifier = tokens[index]["value"]
+                if identifier not in self.variable_types:
+                    return False, f"Semantic Error: Variable '{identifier}' used before declaration. Aw sad :("
+
+                # Ensure assignment operator '=' exists
+                if index + 1 >= len(tokens) or tokens[index + 1]["type"] != "ASSIGN":
+                    return False, f"Semantic Error: Missing '=' after identifier '{identifier}' at token {index}. Aw sad :("
+                
+                index += 2  # Skip IDENTIFIER and ASSIGN
+                # Ensure assigned value is valid
+                if index < len(tokens) and tokens[index]["type"] in {
+                    "INT_LITERAL", "FLOAT_LITERAL", "DOUBLE_LITERAL", "STRING_LITERAL", "BOOLEAN_LITERAL", "CHAR_LITERAL"
+                }:
+                    # Validate the value type against the variable's type
+                    value_type = tokens[index]["type"]
+                    expected_type = self.variable_types[identifier]
+                    if value_type != self.type_mappings.get(expected_type, None):
+                        return False, f"Semantic Error: Type mismatch for variable '{identifier}'. Expected {expected_type}, got {value_type}. Aw sad :("
+
+                    index += 1  # Skip assigned value
+                    
+                    # Ensure semicolon after assignment
+                    if index < len(tokens) and tokens[index]["type"] != "SEMICOLON":
+                        return False, f"Semantic Error: Missing semicolon after assignment for '{identifier}'. Aw sad :("
+                    index += 1  # Skip SEMICOLON
+                else:
+                    return False, f"Semantic Error: Invalid assignment value for '{identifier}' at token {index}. Aw sad :("
+            
+            # If none of the conditions match, it's an unexpected token
+            else:
+                return False, f"Semantic Error: Unexpected token '{tokens[index]['type']}' at position {index}. Aw sad :("
 
         return True, "Semantics Valid. BOOM!"
