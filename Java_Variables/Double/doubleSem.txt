@@ -1,1 +1,3 @@
 double value = "text";
+
+//Error: cannot assign a String ("text") to a double variable.
