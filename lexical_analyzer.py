@@ -33,7 +33,8 @@ class LexicalAnalyzer:
             ("DOUBLE_LITERAL", r"\b\d+\.\d+\b"),
             ("INT_LITERAL", r"\b\d+\b"),
             ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),
-            ("CHAR_LITERAL", r"'(?:\\.|[^'\\])*'"),
+            ("CHAR_LITERAL", r"'([^'\\])'"),
+            #("CHAR_LITERAL_MISMATCH", r"'([^'\\].*)'"), will delete soon
 
             # Punctuation and delimiters
             ("COMMA", r","),
@@ -48,6 +49,7 @@ class LexicalAnalyzer:
             # Whitespace and errors
             ("SKIP", r"[ \t\r\n]+"),
             ("MISMATCH", r"."),
+
         ]
 
 
