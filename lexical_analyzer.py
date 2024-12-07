@@ -68,7 +68,8 @@ class LexicalAnalyzer:
 
             if kind == "MISMATCH" and value.strip():
                 print(f"Unexpected token: {value}")  # Debugging line
-                return [], f"Lexical Error: Unexpected token '{value}' huhuhu."
+                position = match.start()  # Get the position of the error
+                return [], f"Lexical Error: Unexpected token '{value}' at position {position} huhuhu."
 
             if kind != "SKIP":  # Ignore whitespace
                 tokens.append({"type": kind, "value": value})
