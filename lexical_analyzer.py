@@ -1,5 +1,17 @@
 import re
 from comment_remover import remove_comments
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),  # Log to console
+        # logging.FileHandler("lexical_analyzer.log")  # Uncomment to log to file
+    ]
+)
+logger = logging.getLogger("LexicalAnalyzer")
 
 class LexicalAnalyzer:
     def tokenize(self, code):
@@ -61,14 +73,14 @@ class LexicalAnalyzer:
             value = match.group(kind)
 
             # Debug output for token matching
-            print(f"Matched: {kind} -> {value}")
+            logger.debug(f"Matched: {kind} -> {value}")
 
             if kind in {"COMMENT", "MULTI_LINE_COMMENT"}:
                 continue  # Skip comments
 
             if kind == "MISMATCH" and value.strip():
-                print(f"Unexpected token: {value}")  # Debugging line
                 position = match.start()  # Get the position of the error
+                logger.error(f"Unexpected token: '{value}' at position {position}")
                 return [], f"Lexical Error: Unexpected token '{value}' at position {position} huhuhu."
 
             if kind != "SKIP":  # Ignore whitespace
