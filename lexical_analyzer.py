@@ -52,7 +52,6 @@ class LexicalAnalyzer:
 
         ]
 
-
         # Compile regex for all tokens
         token_regex = "|".join(f"(?P<{name}>{pattern})" for name, pattern in token_spec)
 
@@ -70,7 +69,6 @@ class LexicalAnalyzer:
             if kind == "MISMATCH" and value.strip():
                 print(f"Unexpected token: {value}")  # Debugging line
                 return [], f"Lexical Error: Unexpected token '{value}' huhuhu."
-
 
             if kind != "SKIP":  # Ignore whitespace
                 tokens.append({"type": kind, "value": value})
