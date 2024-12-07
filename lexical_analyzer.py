@@ -30,7 +30,7 @@ class LexicalAnalyzer:
 
             # Literals
             ("FLOAT_LITERAL", r"\b\d+(\.\d*)?[fF]\b"),
-            ("DOUBLE_LITERAL", r"\b\d+\.\d+\b"),
+            ("DOUBLE_LITERAL", r"\b\d+\.\d*(e[+-]?\d+)?[dD]?\b"),
             ("INT_LITERAL", r"\b\d+\b"),
             ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),
             ("CHAR_LITERAL", r"'([^'\\])'"),
