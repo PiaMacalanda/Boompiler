@@ -1,1 +1,3 @@
 double myValue == 10.5;
+
+//Error: The '==' operator is used for comparison, not assignment.

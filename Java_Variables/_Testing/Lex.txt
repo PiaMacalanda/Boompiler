@@ -1,0 +1,2 @@
+double value1 = 1.5;
+double value2 = -1.7;
