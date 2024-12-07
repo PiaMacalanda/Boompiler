@@ -33,7 +33,7 @@ class LexicalAnalyzer:
             ("DOUBLE_LITERAL", r"\b\d+\.\d+\b"),
             ("INT_LITERAL", r"\b\d+\b"),
             ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),
-            ("CHAR_LITERAL", r"'(?:\\.|[^'\\])*'"),
+            ("CHAR_LITERAL", r"'(\\.|[^'\\])'"),  
 
             # Punctuation and delimiters
             ("COMMA", r","),
@@ -49,7 +49,6 @@ class LexicalAnalyzer:
             ("SKIP", r"[ \t\r\n]+"),
             ("MISMATCH", r"."),
         ]
-
 
         # Compile regex for all tokens
         token_regex = "|".join(f"(?P<{name}>{pattern})" for name, pattern in token_spec)
@@ -68,7 +67,6 @@ class LexicalAnalyzer:
             if kind == "MISMATCH" and value.strip():
                 print(f"Unexpected token: {value}")  # Debugging line
                 return [], f"Lexical Error: Unexpected token '{value}' huhuhu."
-
 
             if kind != "SKIP":  # Ignore whitespace
                 tokens.append({"type": kind, "value": value})
