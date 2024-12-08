@@ -25,3 +25,13 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/44ac5675-c94b-4439-8e8f-546d206d7371"/>
 </p>
+
+## Learn More💡
+If you want to learn more about python, here's the following links:
+- Python Documentation: https://www.python.org/doc/ <br>
+- Python Tutorial: https://www.w3schools.com/python/ <br>
+
+## Contributors📝:
+- *Pia Katleya Macalanda*
+- *Juliana Mancera*
+- *Thoby Jim Ralleta*
