@@ -54,7 +54,7 @@ class SemanticAnalyzer:
 
                         index += 1
                     
-                    # Handle commas for mul var or semicolon to end dec
+                    # Handle commas for mul var or semicolon to last dec
                     if index < len(tokens) and tokens[index]["type"] == "COMMA":
                         index += 1
                         if index >= len(tokens) or tokens[index]["type"] != "IDENTIFIER":

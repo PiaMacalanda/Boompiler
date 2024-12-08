@@ -46,7 +46,7 @@ class MiniCompilerGUI:
         self.clear_button = tk.Button(self.sidebar, text="Clear", command=self.clear, **button_style, width=15)
         self.toggle_mode_button = tk.Button(self.sidebar, text="࣪ ִֶָ☾.", command=self.toggle_mode, **button_style, width=5)
 
-        # Pack buttons
+        # Pack button
         buttons = [
             self.open_file_button, self.lexical_analysis_button, self.syntax_analysis_button,
             self.semantic_analysis_button, self.clear_button, self.toggle_mode_button

@@ -32,7 +32,7 @@ class LexicalAnalyzer:
             ("CLASS", r"class"),
             ("STATIC", r"\bstatic\b"),
             ("METHOD", r"\b(?:void)\b"),
-            ("TYPE", r"\b(?:int|float|double|String|boolean|char|long|short|byte)\b"),
+            ("TYPE", r"\b(?:int|float|double|String|boolean|char)\b"),
             ("BOOLEAN_LITERAL", r"\b(?:true|false)\b"),
             ("IDENTIFIER", r"[$a-zA-Z_][a-zA-Z0-9_$]*"),
             ("ASSIGN", r"="),
