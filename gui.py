@@ -15,14 +15,14 @@ class MiniCompilerGUI:
         self.syntax_analyzer = SyntaxAnalyzer()
         self.semantic_analyzer = SemanticAnalyzer()
 
-        # Default mode (Light Mode)
+        # Default mode is Light
         self.is_dark_mode = False
 
-        # Create UI elements
+        # Setup UI (☞ﾟヮﾟ)☞
         self.initialize_ui()
 
     def initialize_ui(self):
-        # Header
+        # Header setup
         self.header = tk.Frame(self.root, width=150)
         self.header.pack(side="top", fill="y", padx=10, pady=10)
 
@@ -34,7 +34,7 @@ class MiniCompilerGUI:
         self.descLabel = tk.Label(self.header, text="---------- By Pia Macalanda, Juliana Mancera, & Thoby Ralleta ----------", **desc_style)
         self.descLabel.pack(pady=5)
 
-        # Left Sidebar for Buttons
+        # Sidebar setup with buttons
         self.sidebar = tk.Frame(self.root, width=150)
         self.sidebar.pack(side="top", fill="y", padx=10, pady=10)
 
@@ -55,7 +55,7 @@ class MiniCompilerGUI:
             button.pack(side=tk.LEFT, fill="y", pady=10, padx=10)
             self.add_hover_effect(button)
 
-        # Main Content Area
+        # Main Content Area displaying code and results
         self.main_content = tk.Frame(self.root, padx=10, pady=10)
         self.main_content.pack(side="right", fill="both", expand=True, padx=10, pady=5)
 
@@ -69,11 +69,9 @@ class MiniCompilerGUI:
         self.result_text = tk.Text(self.main_content, height=10, wrap="word", borderwidth=2, relief="solid", font=("Courier", 12, "normal"), state="disabled")
         self.result_text.pack(fill="both", expand=True, pady=5)
 
-        # Apply default styles (Light Mode)
         self.apply_styles()
 
     def add_hover_effect(self, button):
-        """Add hover effect to buttons."""
         def on_enter(e):
             button['bg'] = "#cccccc" if not self.is_dark_mode else "#555555"
 
@@ -99,20 +97,17 @@ class MiniCompilerGUI:
             self.sidebar.configure(bg=bg_color)
             self.main_content.configure(bg=bg_color)
 
-        # Update button, label, and text colors
         self.update_ui_colors(bg_color, fg_color)
 
     def update_ui_colors(self, bg_color, fg_color):
-        # Update header text
+
         self.headLabel.config(bg=bg_color, fg=fg_color)
         self.descLabel.config(bg=bg_color, fg=fg_color)
 
-        # Update buttons
         button_style = {"bg": "#f5f5f5" if not self.is_dark_mode else "#333333", "fg": fg_color, "bd": 0, "font": ("Arial", 12, "bold")}
         for button in [self.open_file_button, self.lexical_analysis_button, self.syntax_analysis_button, self.semantic_analysis_button, self.clear_button, self.toggle_mode_button]:
             button.config(**button_style)
 
-        # Update code text and result text
         self.code_text.config(bg="#ffffff" if not self.is_dark_mode else "#333333", fg=fg_color)
         self.result_text.config(bg="#ffffff" if not self.is_dark_mode else "#333333", fg=fg_color)
 
@@ -120,7 +115,6 @@ class MiniCompilerGUI:
         self.result_label.config(bg=bg_color, fg=fg_color)
 
     def toggle_mode(self):
-        """Toggle between light and dark mode."""
         self.is_dark_mode = not self.is_dark_mode
         self.apply_styles()
 
@@ -193,7 +187,7 @@ class MiniCompilerGUI:
         self.display_result("Semantic Analysis Success! BOOM! Semantics Valid.")
         self.semantic_analysis_button.config(state="disabled")
 
-# Run the application
+# ╰(*°▽°*)╯
 if __name__ == "__main__":
     root = tk.Tk()
     app = MiniCompilerGUI(root)
