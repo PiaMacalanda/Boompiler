@@ -8,7 +8,7 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(),  # Log to console
-        # logging.FileHandler("lexical_analyzer.log")  # Uncomment to log to file
+        # logging.FileHandler("lexical_analyzer.log")  # Uncomment to log to file (for future reference)
     ]
 )
 logger = logging.getLogger("LexicalAnalyzer")
@@ -46,7 +46,6 @@ class LexicalAnalyzer:
             ("INT_LITERAL", r"\b\d+\b"),
             ("STRING_LITERAL", r'"(?:\\.|[^"\\])*"'),
             ("CHAR_LITERAL", r"'([^'\\])'"),
-            #("CHAR_LITERAL_MISMATCH", r"'([^'\\].*)'"), will delete soon
 
             # Punctuation and delimiters
             ("COMMA", r","),

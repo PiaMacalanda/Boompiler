@@ -1,10 +1,10 @@
 import re
 
-def remove_comments(code):
+def remove_comments(code): # Used in Lexical Analyzer Line 22. Dyslexic problem.
 
-    # Remove single-line comments (//...)
+    # Single-line comments (//...)
     code = re.sub(r"//.*?$", "", code, flags=re.MULTILINE)
     
-    # Remove multi-line comments (/*...*/)
+    # Multi-line comments (/*...*/)
     code = re.sub(r"/\*.*?\*/", "", code, flags=re.DOTALL)
     return code
