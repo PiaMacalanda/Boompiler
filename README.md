@@ -22,4 +22,6 @@
 - Locate the `gui.py` file in the Boompiler directory.
 - Once it run, choose txt file from `Java_Variables` folder.
 - And BOOM💥! Done :>>
-<br> ![download](https://github.com/user-attachments/assets/44ac5675-c94b-4439-8e8f-546d206d7371)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/44ac5675-c94b-4439-8e8f-546d206d7371"/>
+</p>
