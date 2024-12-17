@@ -1,0 +1,6 @@
+int x = 10;
+double top = 1.5;
+char letter = 'A';
+float coke = 5.7f;
+boolean high = true;
+String text = "hello";

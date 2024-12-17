@@ -1,0 +1,6 @@
+int a = 10;
+double trouble = 2;
+char lang = 'U';
+float banana = 1.00f;
+boolean us = false;
+String me = "nice"

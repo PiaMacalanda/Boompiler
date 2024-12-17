@@ -1,0 +1,6 @@
+int u = 1;
+double headache = 1000;
+char ka = 'T';
+float choco = 49.50f;
+boolean papasa = true;
+String pagod = 'kami';
