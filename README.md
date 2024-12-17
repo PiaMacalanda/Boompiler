@@ -2,7 +2,7 @@
 
 Watch our video presentation here: [Boompiler](https://drive.google.com/file/d/1jpD-bJAsh0gCLQD179OoZCUgQRMAt4Sm/view?usp=sharing)
 
-&emsp;&emsp;Boompiler is a simple Python-based mini compiler that performs lexical, syntax, and semantic analysis on Java variable declarations. It processes Java code focusing only on variable declaration and ensures correctness through various analysis stages.
+Boompiler is a simple Python-based mini compiler that performs lexical, syntax, and semantic analysis on Java variable declarations. It processes Java code focusing only on variable declaration and ensures correctness through various analysis stages. &emsp;&emsp;
 <br> <img src="https://user-images.githubusercontent.com/74038190/216649441-c7a4d602-5d9b-4c5b-99d4-697bddf6f8e0.gif" width="160" />
 <img src="https://user-images.githubusercontent.com/74038190/216655818-2e7b9a31-49bf-4744-85a8-db8a2577c45c.gif" width="160" />
 <img src="https://user-images.githubusercontent.com/74038190/216655855-e00c1861-e964-4b4f-90ae-2592cad7b272.gif" width="160" />
